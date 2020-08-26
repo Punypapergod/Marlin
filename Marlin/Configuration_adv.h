@@ -3273,7 +3273,7 @@
 /**
  * User-defined menu items that execute custom GCode
  */
-//#define CUSTOM_USER_MENUS
+#define CUSTOM_USER_MENUS
 #if ENABLED(CUSTOM_USER_MENUS)
   #define CUSTOM_USER_MENU_TITLE "Load/Unload"
   //#define USER_SCRIPT_DONE "M117 User Script Done"
@@ -3281,10 +3281,10 @@
   #define USER_SCRIPT_RETURN  // Return to status screen after a script
 
   #define USER_DESC_1 "Load"
-  #define USER_GCODE_1 "M17 E\nG1 E500 F2000"
+  #define USER_GCODE_1 "G21\nG90\nM109 S200\nG92 E0\nG1 E450 F2000\nG92 E0"
   
   #define USER_DESC_2 "Unload"
-  #define USER_GCODE_2 "M17 E\nG1 E600 F2000"
+  #define USER_GCODE_2 "G21\nG90\nM109 S200.000\nG92 E0\nG1 E10 F100\nG92 E0\nG1 E-550 F2000\nG92 E0\nM117 REMOVE FILAMENT NOW"
 
   //#define USER_DESC_2 "Preheat for " PREHEAT_1_LABEL
   //#define USER_GCODE_2 "M140 S" STRINGIFY(PREHEAT_1_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_1_TEMP_HOTEND)
