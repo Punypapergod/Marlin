@@ -584,8 +584,8 @@
  * Prevent a single extrusion longer than EXTRUDE_MAXLENGTH.
  * Note: For Bowden Extruders make this large enough to allow load/unload.
  */
-#define PREVENT_LENGTHY_EXTRUDE
-#define EXTRUDE_MAXLENGTH 200
+//#define PREVENT_LENGTHY_EXTRUDE
+//#define EXTRUDE_MAXLENGTH 200
 
 //===========================================================================
 //======================== Thermal Runaway Protection =======================
@@ -1362,7 +1362,7 @@
 #endif
 
 // Add a menu item to move between bed corners for manual bed adjustment
-#define LEVEL_BED_CORNERS
+//#define LEVEL_BED_CORNERS
 
 #if ENABLED(LEVEL_BED_CORNERS)
   #define LEVEL_CORNERS_INSET_LFRB { 30, 30, 30, 30 } // (mm) Left, Front, Right, Back insets
