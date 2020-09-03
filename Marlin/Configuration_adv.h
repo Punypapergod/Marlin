@@ -814,7 +814,7 @@
 // Default stepper release if idle. Set to 0 to deactivate.
 // Steppers will shut down DEFAULT_STEPPER_DEACTIVE_TIME seconds after the last move when DISABLE_INACTIVE_? is true.
 // Time can be set by M18 and M84.
-#define DEFAULT_STEPPER_DEACTIVE_TIME 120
+#define DEFAULT_STEPPER_DEACTIVE_TIME 60
 #define DISABLE_INACTIVE_X true
 #define DISABLE_INACTIVE_Y true
 #define DISABLE_INACTIVE_Z true  // Set to false if the nozzle will fall down on your printed part when print has finished.
@@ -1123,7 +1123,7 @@
   #define SD_PROCEDURE_DEPTH 1              // Increase if you need more nested M32 calls
 
   #define SD_FINISHED_STEPPERRELEASE true   // Disable steppers when SD Print is finished
-  #define SD_FINISHED_RELEASECOMMAND "M84"  // Use "M84XYE" to keep Z enabled so your bed stays in place
+  #define SD_FINISHED_RELEASECOMMAND "G27"  // Use "M84XYE" to keep Z enabled so your bed stays in place
 
   // Reverse SD sort to show "more recent" files first, according to the card's FAT.
   // Since the FAT gets out of order with usage, SDCARD_SORT_ALPHA is recommended.
@@ -1133,7 +1133,7 @@
 
   //#define MENU_ADDAUTOSTART               // Add a menu option to run auto#.g files
 
-  #define EVENT_GCODE_SD_STOP "G28XY"       // G-code to run on Stop Print (e.g., "G28XY" or "G27")
+  #define EVENT_GCODE_SD_STOP "G27\nM18"       // G-code to run on Stop Print (e.g., "G28XY" or "G27")
 
   #if ENABLED(PRINTER_EVENT_LEDS)
     #define PE_LEDS_COMPLETED_TIME  (30*60) // (seconds) Time to keep the LED "done" color before restoring normal illumination
@@ -1606,7 +1606,7 @@
   //#define EXTRA_LIN_ADVANCE_K // Enable for second linear advance constants
   #define LIN_ADVANCE_K 0.22    // Unit: mm compression per 1mm/s extruder speed
   //#define LA_DEBUG            // If enabled, this will generate debug information output over USB.
-  //#define EXPERIMENTAL_SCURVE // Enable this option to permit S-Curve Acceleration
+  #define EXPERIMENTAL_SCURVE // Enable this option to permit S-Curve Acceleration
 #endif
 
 // @section leveling
@@ -3181,10 +3181,10 @@
   #define USER_SCRIPT_RETURN  // Return to status screen after a script
 
   #define USER_DESC_1 "Load"
-  #define USER_GCODE_1 "G21\nG90\nM109 S200\nG92 E0\nG1 E450 F2000\nG92 E0"
+  #define USER_GCODE_1 "G21\nG90\nM109 S200\nG92 E0\nG1 E450 F2000\nG92 E0\nM18"
   
   #define USER_DESC_2 "Unload"
-  #define USER_GCODE_2 "G21\nG90\nM109 S200.000\nG92 E0\nG1 E10 F100\nG92 E0\nG1 E-550 F2000\nG92 E0\nM117 REMOVE FILAMENT NOW"
+  #define USER_GCODE_2 "G21\nG90\nM109 S200.000\nG92 E0\nG1 E10 F100\nG92 E0\nG1 E-550 F2000\nG92 E0\nM18\nM117 REMOVE FILAMENT NOW"
 
   //#define USER_DESC_2 "Preheat for " PREHEAT_1_LABEL
   //#define USER_GCODE_2 "M140 S" STRINGIFY(PREHEAT_1_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_1_TEMP_HOTEND)

@@ -55,26 +55,26 @@ static_assert(LEVEL_CORNERS_Z_HOP >= 0, "LEVEL_CORNERS_Z_HOP must be >= 0. Pleas
  */
 static int8_t bed_corner;
 static inline void _lcd_goto_next_corner() {
-  constexpr float lfrb[4] = LEVEL_CORNERS_INSET_LFRB;
+  constexpr float lfrb[6] = LEVEL_CORNERS_INSET_LFRB;
   constexpr xy_pos_t lf { (X_MIN_BED) + lfrb[0], (Y_MIN_BED) + lfrb[1] },
-                     rb { (X_MAX_BED) - lfrb[2], (Y_MAX_BED) - lfrb[3] };
+                     rb { (X_MAX_BED) - lfrb[2], (Y_MIN_BED) + lfrb[3] },
+                     rr { (X_MIN_BED) + lfrb[4], (Y_MIN_BED) + lfrb[5] };
   line_to_z(LEVEL_CORNERS_Z_HOP);
   switch (bed_corner) {
     case 0: current_position   = lf;   break; // copy xy
-    case 1: current_position.x = rb.x; break;
-    case 2: current_position.y = rb.y; break;
-    case 3: current_position.x = lf.x; break;
+    case 1: current_position   = rb;   break;
+    case 2: current_position   = rr;   break;
     #if ENABLED(LEVEL_CENTER_TOO)
-      case 4: current_position.set(X_CENTER, Y_CENTER); break;
+      case 3: current_position.set(X_CENTER, Y_CENTER); break;
     #endif
   }
   line_to_current_position(manual_feedrate_mm_s.x);
   line_to_z(LEVEL_CORNERS_HEIGHT);
-  if (++bed_corner > 3 + ENABLED(LEVEL_CENTER_TOO)) bed_corner = 0;
+  if (++bed_corner > 2 + ENABLED(LEVEL_CENTER_TOO)) bed_corner = 0;
 }
 
 static inline void _lcd_level_bed_corners_homing() {
-  _lcd_draw_homing();
+  _lcd_draw_homing(); 
   if (all_axes_homed()) {
     bed_corner = 0;
     ui.goto_screen([]{
