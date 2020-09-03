@@ -21,7 +21,7 @@
  */
 #pragma once
 
-#define CONFIG_EXAMPLES_DIR "Creality/Ender-3 Pro"
+#define CONFIG_EXAMPLES_DIR "Creality/Ender-2"
 
 /**
  * Custom Boot Screen bitmap
