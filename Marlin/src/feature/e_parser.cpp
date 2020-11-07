@@ -21,7 +21,7 @@
  */
 
 /**
- * e_parser.cpp - Intercept special commands directly in the serial stream
+ * emergency_parser.cpp - Intercept special commands directly in the serial stream
  */
 
 #include "../inc/MarlinConfigPre.h"
@@ -32,7 +32,6 @@
 
 // Static data members
 bool EmergencyParser::killed_by_M112, // = false
-     EmergencyParser::quickstop_by_M410,
      EmergencyParser::enabled;
 
 #if ENABLED(HOST_PROMPT_SUPPORT)
